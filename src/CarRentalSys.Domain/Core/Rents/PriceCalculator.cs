@@ -5,7 +5,7 @@ using CarRentalSys.Domain.Shared.ValueObjects;
 
 namespace CarRentalSys.Domain.Core.Rents;
 
-public sealed class PriceCalculator
+public static class PriceCalculator
 {
   public static DetailPrice Calculator(Vehicle vehicle, DateRange range)
   {

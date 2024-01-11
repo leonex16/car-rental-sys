@@ -11,10 +11,10 @@ public sealed class Rent : Entity
   public Guid VehicleId { get; private set; }
   public DetailPrice DetailPrice { get; private set; }
   public DateTime CreatedAt { get; private set; }
-  public DateTime CancellationAt { get; private set; }
-  public DateTime RejectedAt { get; private set; }
-  public DateTime ConfirmedAt { get; private set; }
-  public DateTime CompletedAt { get; private set; }
+  public DateTime? CancellationAt { get; private set; }
+  public DateTime? RejectedAt { get; private set; }
+  public DateTime? ConfirmedAt { get; private set; }
+  public DateTime? CompletedAt { get; private set; }
   public DateRange Range { get; private set; }
   public Status Status { get; private set; }
 
@@ -22,10 +22,6 @@ public sealed class Rent : Entity
     Guid vehicleId,
     DetailPrice detailPrice,
     DateTime createdAt,
-    DateTime cancellationAt,
-    DateTime rejectedAt,
-    DateTime confirmedAt,
-    DateTime completedAt,
     DateRange range,
     Status status)
   {
@@ -33,23 +29,16 @@ public sealed class Rent : Entity
     VehicleId = vehicleId;
     DetailPrice = detailPrice;
     CreatedAt = createdAt;
-    CancellationAt = cancellationAt;
-    RejectedAt = rejectedAt;
-    ConfirmedAt = confirmedAt;
-    CompletedAt = completedAt;
     Range = range;
     Status = status;
 
     AddDomainEvent(new Reserved(Identifier));
   }
   
-  public static Rent Create(Guid userId, Guid vehicleId,DetailPrice detailPrice,
-    DateTime createdAt, DateTime cancellationAt, DateTime rejectedAt,
-    DateTime confirmedAt, DateTime completedAt, DateRange range)
+  public static Rent Create(Guid userId, Guid vehicleId,DetailPrice detailPrice,DateRange range)
   {
     
-    var rent = new Rent(userId, vehicleId, detailPrice, createdAt, cancellationAt,
-      rejectedAt, confirmedAt, completedAt, range, Status.Reserved);
+    var rent = new Rent(userId, vehicleId, detailPrice, DateTime.UtcNow, range, Status.Reserved);
 
     return rent;
   }

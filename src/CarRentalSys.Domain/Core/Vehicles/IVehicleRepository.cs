@@ -2,5 +2,5 @@ namespace CarRentalSys.Domain.Core.Vehicles;
 
 public interface IVehicleRepository
 {
-  Task<Vehicle?> GetByIdAsync(Guid identifier);
+  Task<Vehicle?> GetByIdAsync(Guid identifier, CancellationToken cancellationToken = default);
 }
